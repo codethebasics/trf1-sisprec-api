@@ -22,13 +22,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Testes de integração do serviço de autenticação
+ * Testes de integração do serviço de autenticação do SIREA e CJF
  *
  * @author bruno.carneiro (tr301605)
  */
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-secret.properties")
-class AuthControllerTest {
+class AuthControllerIT {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -37,6 +37,7 @@ class AuthControllerTest {
 
     @Value("${cjf.username}")
     private String cjfUsername;
+
     @Value("${cjf.password}")
     private String cjfPassword;
 
