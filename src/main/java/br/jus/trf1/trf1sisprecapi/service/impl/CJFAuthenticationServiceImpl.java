@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Serviço de autenticação com o serviço do CJF
+ * Serviço de autenticação com a API do CJF
  *
- * @author bruno.carneiro
+ * @author bruno.carneiro (tr301605)
  */
 @Service
 public class CJFAuthenticationServiceImpl implements CJFAuthenticationService {

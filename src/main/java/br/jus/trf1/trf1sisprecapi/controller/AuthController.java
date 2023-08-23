@@ -6,7 +6,7 @@ import br.jus.trf1.trf1sisprecapi.model.dto.CJFAuthenticationRequest;
 import br.jus.trf1.trf1sisprecapi.model.dto.ResponseWrapper;
 import br.jus.trf1.trf1sisprecapi.model.dto.SireaAuthRequest;
 import br.jus.trf1.trf1sisprecapi.model.dto.cjf.SwaggerUsuarioRetorno;
-import br.jus.trf1.trf1sisprecapi.service.AuthenticationService;
+import br.jus.trf1.trf1sisprecapi.service.SireaAuthenticationService;
 import br.jus.trf1.trf1sisprecapi.service.CJFAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,12 +28,12 @@ import java.util.Objects;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthenticationService authenticationService;
+    private final SireaAuthenticationService sireaAuthenticationService;
     private final CJFAuthenticationService cjfAuthenticationService;
 
     @Autowired
-    public AuthController(AuthenticationService authenticationService, CJFAuthenticationService cjfAuthenticationService) {
-        this.authenticationService = authenticationService;
+    public AuthController(SireaAuthenticationService sireaAuthenticationService, CJFAuthenticationService cjfAuthenticationService) {
+        this.sireaAuthenticationService = sireaAuthenticationService;
         this.cjfAuthenticationService = cjfAuthenticationService;
     }
 
@@ -47,7 +47,7 @@ public class AuthController {
                 throw new Exception("As credenciais de autenticação do SIREA devem ser informadas");
             }
 
-            AuthenticationUser authenticationUser = this.authenticationService.login(User.builder()
+            AuthenticationUser authenticationUser = this.sireaAuthenticationService.login(User.builder()
                     .username(sireaAuthRequest.getCpfCnpj())
                     .password(sireaAuthRequest.getSenha())
                     .build());
