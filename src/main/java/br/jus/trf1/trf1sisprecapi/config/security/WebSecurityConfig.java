@@ -34,7 +34,7 @@ public class WebSecurityConfig {
     DataSource dataSourceDev() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .setName("portfolio")
+                .setName("trf1-sisprec")
                 .build();
     }
 
@@ -43,7 +43,7 @@ public class WebSecurityConfig {
     DataSource dataSourceQa() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .setName("portfolio")
+                .setName("trf1-sisprec")
                 .build();
     }
 
@@ -52,7 +52,7 @@ public class WebSecurityConfig {
     DataSource dataSourceProd() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .setName("portfolio")
+                .setName("trf1-sisprec")
                 .build();
     }
 

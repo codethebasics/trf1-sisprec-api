@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @PreAuthorize("hasRole('ROLE_USER')")
 public class ConsultaTabelaController {
 
-    private ConsultaTabelaService consultaTabelaService;
+    private final ConsultaTabelaService consultaTabelaService;
 
     @Autowired
     public ConsultaTabelaController(ConsultaTabelaService consultaTabelaService) {
