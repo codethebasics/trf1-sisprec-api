@@ -98,4 +98,12 @@ class WebSecurityConfigTest {
         this.mockMvc.perform(post("/system"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    @DisplayName("Dado um usuário comum, quando requisitar um GET na rota '/tabela' então retorna OK")
+    @WithMockUser(username = "spring", roles = "USER")
+    void givenCommonUser_whenGetTabelaRoute_thenReturnHttp200() throws Exception {
+        this.mockMvc.perform(get("/tabela/itens/assunto"))
+                .andExpect(status().isOk());
+    }
 }

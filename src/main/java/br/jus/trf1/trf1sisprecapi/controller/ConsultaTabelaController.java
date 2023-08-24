@@ -3,7 +3,11 @@ package br.jus.trf1.trf1sisprecapi.controller;
 import br.jus.trf1.trf1sisprecapi.model.dto.ResponseWrapper;
 import br.jus.trf1.trf1sisprecapi.model.dto.cjf.SwaggerTabelaRetorno;
 import br.jus.trf1.trf1sisprecapi.model.dto.cjf.SwaggerUsuarioRetorno;
+import br.jus.trf1.trf1sisprecapi.service.ConsultaTabelaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/tabela")
+@PreAuthorize("hasRole('ROLE_USER')")
 public class ConsultaTabelaController {
+
+    private ConsultaTabelaService consultaTabelaService;
+
+    @Autowired
+    public ConsultaTabelaController(ConsultaTabelaService consultaTabelaService) {
+        this.consultaTabelaService = consultaTabelaService;
+    }
 
     /**
      * Solicita à API do CJF todos os itens de determinada tabela
@@ -30,8 +42,12 @@ public class ConsultaTabelaController {
      * @return
      */
     @GetMapping("/itens/{tabela}")
-    public ResponseEntity<ResponseWrapper<SwaggerTabelaRetorno>> getTabelaItens(@PathVariable("tabela") String tabela) {
-        return null;
+    public ResponseEntity<ResponseWrapper<SwaggerTabelaRetorno>> getTabelaItens(@PathVariable("tabela") String tabela) throws Exception {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseWrapper.<SwaggerTabelaRetorno>builder()
+                        .retorno(this.consultaTabelaService.getTabelaItens(tabela))
+                        .build());
     }
 
     /**
