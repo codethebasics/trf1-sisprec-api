@@ -25,11 +25,13 @@ public class ConsultaTabelaServiceImpl implements ConsultaTabelaService {
     @Override
     public SwaggerTabelaRetorno getTabelaItens(String tabela) {
         final String REQUEST_URI = CJF_TABELA_ENDPOINT + tabela;
-        return this.restTemplate.getForEntity(
+        final SwaggerTabelaRetorno swaggerTabelaRetorno = this.restTemplate.getForEntity(
                 REQUEST_URI,
                 SwaggerTabelaRetorno.class
         )
         .getBody();
+
+        return swaggerTabelaRetorno;
     }
 
     @Override
