@@ -1,7 +1,9 @@
 package br.jus.trf1.trf1sisprecapi.service;
 
+import br.jus.trf1.trf1sisprecapi.model.dto.ResponseWrapper;
 import br.jus.trf1.trf1sisprecapi.model.dto.cjf.AssuntoWS;
 import br.jus.trf1.trf1sisprecapi.model.dto.cjf.SwaggerTabelaRetorno;
+import org.springframework.http.ResponseEntity;
 
 /**
  * Serviço responsável pela integração com o endpoint de tabela do CJF
@@ -29,5 +31,5 @@ public interface ConsultaTabelaService {
      *
      * @throws Exception
      */
-    SwaggerTabelaRetorno  getTabelaItem(String tabela, Long codigo) throws Exception;
+    SwaggerTabelaRetorno  getTabelaItem(String tabela, String codigo) throws Exception;
 }

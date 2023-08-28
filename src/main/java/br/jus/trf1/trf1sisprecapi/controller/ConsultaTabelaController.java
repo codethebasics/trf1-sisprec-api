@@ -2,12 +2,10 @@ package br.jus.trf1.trf1sisprecapi.controller;
 
 import br.jus.trf1.trf1sisprecapi.model.dto.ResponseWrapper;
 import br.jus.trf1.trf1sisprecapi.model.dto.cjf.SwaggerTabelaRetorno;
-import br.jus.trf1.trf1sisprecapi.model.dto.cjf.SwaggerUsuarioRetorno;
 import br.jus.trf1.trf1sisprecapi.service.ConsultaTabelaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/tabela")
-@PreAuthorize("hasRole('ROLE_USER')")
+//@PreAuthorize("hasRole('ROLE_USER')")
 public class ConsultaTabelaController {
 
     private final ConsultaTabelaService consultaTabelaService;
@@ -42,12 +40,12 @@ public class ConsultaTabelaController {
      * @return
      */
     @GetMapping("/itens/{tabela}")
-    public ResponseEntity<ResponseWrapper<SwaggerTabelaRetorno>> getTabelaItens(@PathVariable("tabela") String tabela) throws Exception {
+    public SwaggerTabelaRetorno getTabelaItens(@PathVariable("tabela") String tabela) throws Exception {
+        SwaggerTabelaRetorno tabelaItens = this.consultaTabelaService.getTabelaItens(tabela);
         return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(ResponseWrapper.<SwaggerTabelaRetorno>builder()
-                        .retorno(this.consultaTabelaService.getTabelaItens(tabela))
-                        .build());
+                .status(tabelaItens.getStatus())
+                .body(tabelaItens)
+                .getBody();
     }
 
     /**
@@ -58,7 +56,11 @@ public class ConsultaTabelaController {
      * @return
      */
     @GetMapping("/itens/{tabela}/{codigo}")
-    public ResponseEntity<ResponseWrapper<SwaggerTabelaRetorno>> getTabelaItem(@PathVariable("tabela") String tabela, @PathVariable Long codigo) {
-        return null;
+    public SwaggerTabelaRetorno getTabelaItem(@PathVariable("tabela") String tabela, @PathVariable String codigo) throws Exception {
+        SwaggerTabelaRetorno tabelaItens = this.consultaTabelaService.getTabelaItem(tabela, codigo);
+        return ResponseEntity
+                .status(tabelaItens.getStatus())
+                .body(tabelaItens)
+                .getBody();
     }
 }

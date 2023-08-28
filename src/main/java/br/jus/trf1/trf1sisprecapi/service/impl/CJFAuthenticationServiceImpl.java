@@ -1,11 +1,15 @@
 package br.jus.trf1.trf1sisprecapi.service.impl;
 
+import br.jus.trf1.trf1sisprecapi.Trf1SisprecApiApplication;
 import br.jus.trf1.trf1sisprecapi.model.dto.CJFAuthenticationRequest;
 import br.jus.trf1.trf1sisprecapi.model.dto.cjf.SwaggerUsuarioRetorno;
 import br.jus.trf1.trf1sisprecapi.service.CJFAuthenticationService;
 import org.apache.logging.log4j.util.Strings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,11 +19,20 @@ import org.springframework.web.client.RestTemplate;
  * @author bruno.carneiro (tr301605)
  */
 @Service
+@PropertySource(value = "classpath:application-secret.properties")
 public class CJFAuthenticationServiceImpl implements CJFAuthenticationService {
 
     private final static String CJF_AUTHENTICATION_ENDPOINT = "https://www4.cjf.jus.br/precatorios_api/ws/autenticacao/";
 
     private final RestTemplate restTemplate;
+
+    private static final Logger logger = LoggerFactory.getLogger(Trf1SisprecApiApplication.class);
+
+    @Value("${cjf.username}")
+    private String cjfUsername;
+
+    @Value("${cjf.password}")
+    private String cjfPassword;
 
     @Autowired
     public CJFAuthenticationServiceImpl(RestTemplate restTemplate) {
@@ -27,12 +40,13 @@ public class CJFAuthenticationServiceImpl implements CJFAuthenticationService {
     }
 
     @Override
-    public SwaggerUsuarioRetorno cjfAuthentication(CJFAuthenticationRequest cjfAuthenticationRequest) {
+    public SwaggerUsuarioRetorno cjfAuthentication() {
 
-        // Realizando a autentação no endpoint do CJF
+        logger.info("Realizando autenticação no endpoint do CJF");
+
         SwaggerUsuarioRetorno swaggerUsuarioRetorno = this.restTemplate.postForEntity(
                         CJF_AUTHENTICATION_ENDPOINT,
-                        cjfAuthenticationRequest,
+                        new CJFAuthenticationRequest(this.cjfUsername, this.cjfPassword),
                         SwaggerUsuarioRetorno.class
                 )
                 .getBody();
@@ -41,13 +55,6 @@ public class CJFAuthenticationServiceImpl implements CJFAuthenticationService {
         assert swaggerUsuarioRetorno != null : "A requisição não retornou o response";
         assert swaggerUsuarioRetorno.getRetorno() != null : "Erro ao obter o retorno da autenticação";
         assert Strings.isNotBlank(swaggerUsuarioRetorno.getRetorno().getToken()) : "A token de autenticação não foi retornada";
-
-        // Adicionando a token obtida no header da requisição
-        this.restTemplate.getInterceptors().add((request, body, execution) -> {
-            HttpHeaders headers = request.getHeaders();
-            headers.add("Authorization", "Bearer " + swaggerUsuarioRetorno.getRetorno().getToken());
-            return execution.execute(request, body);
-        });
 
         return swaggerUsuarioRetorno;
     }

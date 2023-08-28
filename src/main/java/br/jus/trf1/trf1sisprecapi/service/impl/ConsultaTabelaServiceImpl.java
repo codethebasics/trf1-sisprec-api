@@ -1,8 +1,12 @@
 package br.jus.trf1.trf1sisprecapi.service.impl;
 
+import br.jus.trf1.trf1sisprecapi.model.dto.ResponseWrapper;
 import br.jus.trf1.trf1sisprecapi.model.dto.cjf.SwaggerTabelaRetorno;
 import br.jus.trf1.trf1sisprecapi.service.ConsultaTabelaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,7 +17,8 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ConsultaTabelaServiceImpl implements ConsultaTabelaService {
 
-    private final static String CJF_TABELA_ENDPOINT = "https://www4.cjf.jus.br/ws/itens/tabela/";
+    private final static String CJF_TABELA_ENDPOINT_TABELA = "https://www4.cjf.jus.br/precatorios_api/ws/tabela/itens/${tabela}/";
+    private final static String CJF_TABELA_ENDPOINT_TABELA_CODIGO = "https://www4.cjf.jus.br/precatorios_api/ws/tabela/item/${tabela}/${codigo}/";
 
     private final RestTemplate restTemplate;
 
@@ -24,23 +29,17 @@ public class ConsultaTabelaServiceImpl implements ConsultaTabelaService {
 
     @Override
     public SwaggerTabelaRetorno getTabelaItens(String tabela) {
-        final String REQUEST_URI = CJF_TABELA_ENDPOINT + tabela;
-        final SwaggerTabelaRetorno swaggerTabelaRetorno = this.restTemplate.getForEntity(
-                REQUEST_URI,
-                SwaggerTabelaRetorno.class
-        )
-        .getBody();
-
-        return swaggerTabelaRetorno;
+        final String REQUEST_URI = CJF_TABELA_ENDPOINT_TABELA.replace("${tabela}", tabela);
+        ResponseEntity<SwaggerTabelaRetorno> responseEntity = restTemplate.getForEntity(REQUEST_URI, SwaggerTabelaRetorno.class);
+        return responseEntity.getBody();
     }
 
     @Override
-    public SwaggerTabelaRetorno getTabelaItem(String tabela, Long codigo) {
-        final String REQUEST_URI = CJF_TABELA_ENDPOINT + tabela + "/" + codigo;
-        return this.restTemplate.getForEntity(
-                        REQUEST_URI,
-                        SwaggerTabelaRetorno.class
-                )
-                .getBody();
+    public SwaggerTabelaRetorno getTabelaItem(String tabela, String codigo) throws Exception {
+        final String REQUEST_URI = CJF_TABELA_ENDPOINT_TABELA_CODIGO
+                .replace("${tabela}", tabela)
+                .replace("${codigo}", codigo);
+        ResponseEntity<SwaggerTabelaRetorno> responseEntity = restTemplate.getForEntity(REQUEST_URI, SwaggerTabelaRetorno.class);
+        return responseEntity.getBody();
     }
 }

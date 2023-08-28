@@ -5,5 +5,5 @@ import br.jus.trf1.trf1sisprecapi.model.dto.cjf.SwaggerUsuarioRetorno;
 
 public interface CJFAuthenticationService {
 
-    SwaggerUsuarioRetorno cjfAuthentication(CJFAuthenticationRequest cjfAuthenticationRequest);
+    SwaggerUsuarioRetorno cjfAuthentication();
 }

@@ -66,11 +66,11 @@ public class AuthController {
      * Realiza autenticação no endpoint do CJF
      */
     @PostMapping(value = "/cjf", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseWrapper<SwaggerUsuarioRetorno>> authenticateOnCJF(@RequestBody CJFAuthenticationRequest cjfAuthenticationRequest) {
+    public ResponseEntity<ResponseWrapper<SwaggerUsuarioRetorno>> authenticateOnCJF() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(ResponseWrapper.<SwaggerUsuarioRetorno>builder()
-                        .retorno(this.cjfAuthenticationService.cjfAuthentication(cjfAuthenticationRequest))
+                        .retorno(this.cjfAuthenticationService.cjfAuthentication())
                         .build());
     }
 }

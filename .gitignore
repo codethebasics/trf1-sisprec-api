@@ -32,5 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
+# Exclusões de arquivos do projeto
 application-secret.properties
 trf1-sisprec.log
+*.gz
+*.tmp

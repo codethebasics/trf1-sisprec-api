@@ -66,11 +66,13 @@ public class WebSecurityConfig {
         return security
                 .authorizeHttpRequests(http -> http
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/auth/**")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/tabela/**")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/tabela/itens/**")).permitAll()
                         .requestMatchers(toH2Console()).permitAll()
                         .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
                 .build();
     }
 
