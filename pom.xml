@@ -128,15 +128,15 @@
                 </configuration>
             </plugin>
         </plugins>
-<!--        <resources>-->
-<!--            <resource>-->
-<!--                <directory>src/main/resources</directory>-->
-<!--                <filtering>true</filtering>-->
-<!--                <excludes>-->
-<!--                    <exclude>local-ssl.p12</exclude>-->
-<!--                </excludes>-->
-<!--            </resource>-->
-<!--        </resources>-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>local-ssl.p12</exclude>
+                </excludes>
+            </resource>
+        </resources>
     </build>
 
 </project>
