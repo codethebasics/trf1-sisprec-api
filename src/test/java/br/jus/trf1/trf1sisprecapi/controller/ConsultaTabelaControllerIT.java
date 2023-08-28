@@ -50,6 +50,22 @@ class ConsultaTabelaControllerIT {
 
         // when / then
         this.mockMvc.perform(get(ENDPOINT + tabela))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(content().string(containsString("Encontrado(s)")));
+    }
+
+    @Test
+    @DisplayName("Dado a tabela assunto, quando disparar um GET então retorna itens do assunto")
+    @WithMockUser(username = "spring", roles = "USER")
+    void givenTabelaAndCodigo_whehGetOnTabelaEndpoint_thenReturn200() throws Exception {
+
+        // given
+        final String tabela = "/assunto";
+        final String codigo = "/06041303";
+
+        // when / then
+        this.mockMvc.perform(get(ENDPOINT + tabela + codigo))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(content().string(containsString("Encontrado(s) 1 registro(s)")));
     }
 }
