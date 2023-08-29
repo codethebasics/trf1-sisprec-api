@@ -58,7 +58,6 @@ public class BeansConfiguration {
 
         interceptors.add(new RestTemplateHeaderAuthenticationInterceptor());
         restTemplate.setInterceptors(interceptors);
-
         return restTemplate;
     }
 }

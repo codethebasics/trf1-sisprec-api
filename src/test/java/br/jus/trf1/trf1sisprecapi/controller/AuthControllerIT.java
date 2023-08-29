@@ -1,6 +1,7 @@
 package br.jus.trf1.trf1sisprecapi.controller;
 
-import br.jus.trf1.trf1sisprecapi.model.dto.CJFAuthenticationRequest;
+import br.jus.trf1.trf1sisprecapi.cjf.dto.CJFAuthenticationRequest;
+import br.jus.trf1.trf1sisprecapi.cjf.dto.UnidadeSuperiorWS;
 import br.jus.trf1.trf1sisprecapi.util.JSONParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;

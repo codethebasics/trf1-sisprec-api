@@ -1,6 +1,6 @@
 package br.jus.trf1.trf1sisprecapi.security;
 
-import br.jus.trf1.trf1sisprecapi.model.dto.SireaAuthRequest;
+import br.jus.trf1.trf1sisprecapi.sirea.dto.SireaAuthRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
