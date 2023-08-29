@@ -2,6 +2,7 @@ package br.jus.trf1.trf1sisprecapi.controller;
 
 import br.jus.trf1.trf1sisprecapi.cjf.dto.CJFAuthenticationRequest;
 import br.jus.trf1.trf1sisprecapi.cjf.dto.UnidadeSuperiorWS;
+import br.jus.trf1.trf1sisprecapi.sirea.dto.SireaAuthRequest;
 import br.jus.trf1.trf1sisprecapi.util.JSONParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -42,6 +43,12 @@ class AuthControllerIT {
     @Value("${cjf.password}")
     private String cjfPassword;
 
+    @Value("${sirea.username}")
+    private String sireaUsername;
+
+    @Value("${sirea.password}")
+    private String sireaPassword;
+
     @BeforeEach
     void setUp() {
         this.mockMvc = MockMvcBuilders
@@ -70,5 +77,31 @@ class AuthControllerIT {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Acesso concedido")));
+    }
+
+    /**
+     * Testa a autenticação junto ao SIREA.
+     * Esse teste de integração visa ser rodado avulso.
+     * Antes de rodar o teste certifique-se de ter informado as credenciais corretas.
+     *
+     * ATENÇÃO: Tenha cuidado para não comitar suas credenciais
+     *
+     * @throws Exception
+     */
+    @Disabled
+    @Test
+    @DisplayName("Dado credenciais válidas de autenticação no SIREA, quando autenticar então retorna HTTP 200")
+    void givenSireaAuthRequest_whenAuthenticate_thenReturn200() throws Exception {
+
+        // given
+        SireaAuthRequest sireaAuthRequest = new SireaAuthRequest(this.sireaUsername, this.sireaPassword);
+
+        // when / then
+        this.mockMvc.perform(
+                post("/auth")
+                        .content(JSONParser.asJsonString(sireaAuthRequest))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }

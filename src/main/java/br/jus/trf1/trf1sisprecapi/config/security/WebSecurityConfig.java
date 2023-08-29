@@ -33,33 +33,6 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 public class WebSecurityConfig {
 
     @Bean
-    @Profile("dev")
-    DataSource dataSourceDev() {
-        return new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .setName("trf1-sisprec")
-                .build();
-    }
-
-    @Bean
-    @Profile("qa")
-    DataSource dataSourceQa() {
-        return new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .setName("trf1-sisprec")
-                .build();
-    }
-
-    @Bean
-    @Profile("prod")
-    DataSource dataSourceProd() {
-        return new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .setName("trf1-sisprec")
-                .build();
-    }
-
-    @Bean
     JdbcUserDetailsManager users(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
     }

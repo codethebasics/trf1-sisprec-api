@@ -52,7 +52,6 @@ public class PostgresDatasourceConfig {
             @Qualifier("postgresqlDataSource") DataSource dataSource) {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.hbm2ddl.auto", "update");
-        properties.put("org.hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         return builder
                 .dataSource(dataSource)
                 .properties(properties)
