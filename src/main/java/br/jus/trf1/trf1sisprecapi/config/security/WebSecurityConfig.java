@@ -18,6 +18,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
 /**
@@ -79,6 +82,12 @@ public class WebSecurityConfig {
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    MessageDigest md5() throws NoSuchAlgorithmException {
+        final String MD5 = "MD5";
+        return MessageDigest.getInstance(MD5);
     }
 
 }

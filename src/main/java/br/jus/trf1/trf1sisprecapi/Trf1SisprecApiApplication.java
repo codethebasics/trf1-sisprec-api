@@ -1,9 +1,11 @@
 package br.jus.trf1.trf1sisprecapi;
 
 import br.jus.trf1.trf1sisprecapi.config.beans.BeansConfiguration;
-import br.jus.trf1.trf1sisprecapi.model.dto.cjf.SwaggerUsuarioRetorno;
-import br.jus.trf1.trf1sisprecapi.model.dto.cjf.TokenWS;
-import br.jus.trf1.trf1sisprecapi.service.CJFAuthenticationService;
+import br.jus.trf1.trf1sisprecapi.cjf.dto.SwaggerUsuarioRetorno;
+import br.jus.trf1.trf1sisprecapi.cjf.dto.TokenWS;
+import br.jus.trf1.trf1sisprecapi.cjf.service.CJFAuthenticationService;
+import br.jus.trf1.trf1sisprecapi.sirea.model.UsuarioCumprimentoSentenca;
+import br.jus.trf1.trf1sisprecapi.sirea.repository.UsuarioCumprimentoSentencaRepository;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +26,11 @@ public class Trf1SisprecApiApplication implements CommandLineRunner {
 
     private final CJFAuthenticationService cjfAuthenticationService;
 
-    public Trf1SisprecApiApplication(CJFAuthenticationService cjfAuthenticationService) {
+    private final UsuarioCumprimentoSentencaRepository usuarioCumprimentoSentencaRepository;
+
+    public Trf1SisprecApiApplication(CJFAuthenticationService cjfAuthenticationService, UsuarioCumprimentoSentencaRepository usuarioCumprimentoSentencaRepository) {
         this.cjfAuthenticationService = cjfAuthenticationService;
+        this.usuarioCumprimentoSentencaRepository = usuarioCumprimentoSentencaRepository;
     }
 
     public static void main(String[] args) {
