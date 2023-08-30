@@ -38,12 +38,11 @@ class WebSecurityConfigTest {
 
     private MockMvc mockMvc;
 
-    private static ObjectMapper mapper;
     private static ObjectWriter writer;
 
     @BeforeAll
     static void beforeAll() {
-        mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         writer = mapper.writer().withDefaultPrettyPrinter();
     }

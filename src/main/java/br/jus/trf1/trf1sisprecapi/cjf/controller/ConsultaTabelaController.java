@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
  * Para consultar o Swagger do CJF, favor acessar
  * <a href="https://www4.cjf.jus.br/precatorios_api/swagger/swagger-ui.html#">https://www4.cjf.jus.br/precatorios_api/swagger/swagger-ui.html#</a>
  *
- * O serviço não requer autenticação para ser utilizado
- *
  * @author bruno.carneiro (tr301605)
  */
 @RestController

@@ -11,4 +11,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ValorPrecatorioWS {
+    private Integer agenciaNumero;
+    private Integer bancoNumero;
+    private String cancelamentoData;
+    private String contaDigito;
+    private Integer parcelaNumero;
+    private String registroData;
+    private Integer sequencial;
+    private ValorTipoWS valorTipoWS;
+    private Float valor;
 }
