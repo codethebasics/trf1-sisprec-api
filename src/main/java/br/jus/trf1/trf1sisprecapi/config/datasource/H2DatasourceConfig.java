@@ -2,7 +2,6 @@ package br.jus.trf1.trf1sisprecapi.config.datasource;
 
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -38,7 +37,7 @@ import java.util.HashMap;
         entityManagerFactoryRef = "h2EntityManagerFactory",
         transactionManagerRef = "h2TransactionManager"
 )
-public class H2DataSourceConfig {
+public class H2DatasourceConfig {
 
     @Primary
     @Bean(name = "h2DataSource")

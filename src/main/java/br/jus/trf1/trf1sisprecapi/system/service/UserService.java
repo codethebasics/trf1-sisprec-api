@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * Serviço de autenticação da API TRF1-SISPREC
+ *
+ * @author bruno.carneiro (tr301605)
+ */
 @Service
 public class UserService {
 
